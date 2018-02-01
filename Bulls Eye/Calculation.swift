@@ -51,7 +51,7 @@ struct Calculation {
         let b3 = a3/60
         
         //5: coordinate for POI solver
-        let a5 = headingAngleOfTheDevice_TN.degreesToRadians
+        let a5 = (90-headingAngleOfTheDevice_TN).degreesToRadians
         let lattitudeAngleOfPOI = (b3*sin(a5))+latitudeAngleOfDevice
         let longitudeAngleOfPOI = ((b3/cos(latitudeAngleOfDevice.degreesToRadians))*cos(a5))+longitudeAngleOfDevice
         
