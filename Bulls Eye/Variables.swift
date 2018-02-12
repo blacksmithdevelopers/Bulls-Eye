@@ -9,7 +9,7 @@
 import Foundation
 //import UIKit
 
-struct Variables {
+class Variables {
     
     //Bulls Eye Global Variables
     static var overlayFileName: String? = "BullsEye"
@@ -21,8 +21,10 @@ struct Variables {
     static var BE_width: Int = 5
     static var BE_styleName: String = "BE"
     static var BE_radiusOfOuterRing: Double = 200.0
-    static var BE_magVariation: Double = -18.0
+    static var BE_magVariation: Double = 0.0
     static var BE_KML: String = ""
+    
+    static var UserMagVariation: Double = 0.0
     
     //Threat Global Variables
     static var GPSLattitude: Double = 0.0

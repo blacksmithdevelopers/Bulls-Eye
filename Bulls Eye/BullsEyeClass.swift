@@ -19,7 +19,7 @@ class BullsEye {
         let centerPoint = Variables.BE_centerPoint
         let radiusOfOuterRing = Variables.BE_radiusOfOuterRing
         let styleName = Variables.BE_styleName
-        let magVariation = Variables.BE_magVariation
+        let magVariation = Variables.BE_magVariation * -1
         
         let bullsEyeStyle = Style()
         bullsEyeStyle.color = color

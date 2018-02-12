@@ -13,10 +13,20 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     // ForeFlight Format: 38.30943N/88.00854W 38.05367N/88.45148W 37.79306N/87.95454W 38.12465N/87.73879W 38.4178N/87.70232W 60000ft
     let locationManager = CLLocationManager()
+   
+    
+   
+    
+    
     
     @IBOutlet weak var overLayFileName_TextField: UITextField!
     @IBOutlet weak var bullsEyeName_TextField: UITextField!
     @IBOutlet weak var bullsEyeCenterPoint_TextField: UITextField!
+    
+    
+    
+    
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == overLayFileName_TextField {
@@ -57,90 +67,34 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         Variables.BE_color = ColorArray[row]
     }
     
-    //OPACITY SLIDER
-    @IBOutlet weak var opacity_Label: UILabel!
-    @IBOutlet weak var bullsEyeOpacity_SliderControl: UISlider!
-    @IBAction func bullsEyeOpacity_Slider(_ sender: Any) {
-        
-        let sliderValue = Int(bullsEyeOpacity_SliderControl.value)
-        opacity_Label.text = "\(String(Int(bullsEyeOpacity_SliderControl.value)))%"
-        
-        if sliderValue < 5 {
-            Variables.BE_opacity = "0"
-        } else if sliderValue < 10 {
-            Variables.BE_opacity = "5"
-        } else if sliderValue < 15 {
-            Variables.BE_opacity = "10"
-        }else if sliderValue < 20 {
-            Variables.BE_opacity = "15"
-        }else if sliderValue < 25 {
-            Variables.BE_opacity = "20"
-        }else if sliderValue < 30 {
-            Variables.BE_opacity = "25"
-        }else if sliderValue < 35 {
-            Variables.BE_opacity = "30"
-        }else if sliderValue < 40 {
-            Variables.BE_opacity = "35"
-        }else if sliderValue < 45 {
-            Variables.BE_opacity = "40"
-        }else if sliderValue < 50 {
-            Variables.BE_opacity = "45"
-        }else if sliderValue < 55 {
-            Variables.BE_opacity = "50"
-        }else if sliderValue < 60 {
-            Variables.BE_opacity = "55"
-        }else if sliderValue < 65 {
-            Variables.BE_opacity = "60"
-        }else if sliderValue < 70 {
-            Variables.BE_opacity = "65"
-        }else if sliderValue < 75 {
-            Variables.BE_opacity = "70"
-        }else if sliderValue < 80 {
-            Variables.BE_opacity = "75"
-        }else if sliderValue < 85 {
-            Variables.BE_opacity = "80"
-        }else if sliderValue < 90 {
-            Variables.BE_opacity = "85"
-        }else if sliderValue < 95 {
-            Variables.BE_opacity = "90"
-        }else if sliderValue < 100 {
-            Variables.BE_opacity = "95"
-        }else {
-            Variables.BE_opacity = "100"
-        }
-        UserDefaults.standard.set(Variables.BE_opacity, forKey: "BE_opacity")
-        
-    }
-    
-    //WIDTH SLIDER
-    @IBOutlet weak var widthLabel: UILabel!
-    @IBOutlet weak var widthSlider: UISlider!
-    @IBAction func widthSlider(_ sender: Any) {
-        widthLabel.text = "\(String(Int(widthSlider.value)))"
-        Variables.BE_width = Int(widthSlider.value)
-        UserDefaults.standard.set(Variables.BE_width, forKey: "BE_width")
-    }
-    
-    //OUTER RING SIZE
+    // MARK: BULLS EYE SIZE
     @IBOutlet weak var BESizeSliderLabel: UILabel!
-    @IBOutlet weak var BESizeSlider: UISlider!
-    @IBAction func BESizeSlider_(_ sender: Any) {
-        BESizeSliderLabel.text = "\(String(Int(BESizeSlider.value))) NM"
-        Variables.BE_radiusOfOuterRing = Double(Int(BESizeSlider.value))
-        UserDefaults.standard.set(Variables.BE_radiusOfOuterRing, forKey: "BE_radiusOfOuterRing")
+    @IBAction func BESizeStepper(_ sender: UIStepper) {
+        BESizeSliderLabel.text = String(sender.value)
+        Variables.BE_radiusOfOuterRing = Double(sender.value)
     }
     
-    //MAGNETIC VARIATION SLIDER
+    
+    // MARK: MAGNETIC VARIATION STEPPER
     @IBOutlet weak var magVarLabel: UILabel!
-    @IBOutlet weak var magVarSlider: UISlider!
-    @IBAction func magVarSlider(_ sender: Any) {
-        magVarLabel.text = "\(String(Int(magVarSlider.value)))"
-        Variables.BE_magVariation = Double(Int(magVarSlider.value))
+    @IBAction func magVarStepper(_ sender: UIStepper) {
+        magVarLabel.text = String(format: "%.1f", sender.value)
+        Variables.BE_magVariation = sender.value
         UserDefaults.standard.set(Variables.BE_magVariation, forKey: "BE_magVariation")
-        print(String(Int(magVarSlider.value)))
-        
+
     }
     
+    // MARK: CURRENT MAG VAR BUTTON
+    @IBOutlet weak var currentMagVarButtonOutlet: UIButton!
+    @IBAction func currentMagVarButton(_ sender: UIButton) {
+        magVarLabel.text = String(format: "%.1f", (Variables.UserMagVariation))
+        UserDefaults.standard.set(Variables.BE_magVariation, forKey: "BE_magVariation")
+
+        //Setting User Defaults:
+        Variables.BE_magVariation = Variables.UserMagVariation
+    }
+    
+    // MARK: Coordinate Translator
     func coordinateTranslate(_ coords: String) -> [Double] {
         let coords = coords.capitalized
         var coordsArray = coords.components(separatedBy: "/")
@@ -164,6 +118,7 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return coordCalculatedArray
     }
 
+    // MARK: Set Bulls Eye Button
     @IBAction func setBullsEyeInformation_Button(_ sender: Any) {
         if overLayFileName_TextField.text! != "" {
             Variables.overlayFileName! = overLayFileName_TextField.text!
@@ -197,13 +152,18 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 (action) in alert.dismiss(animated: true, completion: nil)}))
             self.present(alert, animated: true, completion: nil)
         }
+        //Setting Defaults
+        UserDefaults.standard.set(Variables.BE_magVariation, forKey: "BE_magVariation")
+        UserDefaults.standard.set(Variables.BE_radiusOfOuterRing, forKey: "BE_radiusOfOuterRing")
+        
         savedBullsEyeInformation()
         let bullsEye = BullsEye()
         Variables.BE_KML = bullsEye.bullsEye()
         UserDefaults.standard.set(Variables.BE_KML, forKey: "BullsEye")
         
     }
-    //Generates the KML file and exports it to the share sheet
+    
+    // MARK: Generate Overlay
     @IBAction func createKML(_ sender: Any) {
         let fileName = "\(Variables.overlayFileName ?? "BullsEye").kml"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
@@ -238,6 +198,7 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
     }
     
+    // MARK: ForeFlight Button
     @IBAction func ForeFlightButton(_ sender: Any) {
         Variables.overlayFileName = overLayFileName_TextField.text!.capitalized
         let fileName = "\(Variables.overlayFileName ?? "BullsEye").kml"
@@ -266,6 +227,7 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
     }
     
+    // MARK: ForeFlight C&P FlightPlan
     func foreFlightPaste(_ styleName: String, _ color: String, _ opacity: String, _ width: Int ) -> String {
         var foreFlightCoords: String = ""
         let styleName = styleName
@@ -294,6 +256,7 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return KML_All
     }
     
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations: [CLLocation]){
         if let location = didUpdateLocations.first {
             _ = location
@@ -303,15 +266,15 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         //Privacy - Location always description:            This is used to determine your aircrafts postion in the background
     }
     
-    //SAVED BULLSEYE Labels
+    // MARK: OutPutLabels
     @IBOutlet weak var overLayFileName_Label: UILabel!
     @IBOutlet weak var bullsEyeName_Label: UILabel!
     @IBOutlet weak var bullsEyeCenterPoint_Label: UILabel!
     @IBOutlet weak var bullsEyeColor_Label: UILabel!
-    @IBOutlet weak var bullsEyeOpacity_Label: UILabel!
-    @IBOutlet weak var bullsEyeLineThickness_Label: UILabel!
     @IBOutlet weak var bullsEyeMagVariation_Label: UILabel!
     @IBOutlet weak var bullsEyeSize_Label: UILabel!
+   
+    // MARK: Saved BE Information
     func savedBullsEyeInformation(){
         if Variables.overlayFileName == nil {//|| overLayFileName_TextField.text == "" {
             Variables.overlayFileName = "Overlay"
@@ -340,20 +303,9 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let BE_colorDefault = UserDefaults.standard.object(forKey: "BE_color") as? String {
             bullsEyeColor_Label.text = BE_colorDefault
         }
-        bullsEyeOpacity_Label.text = Variables.BE_opacity
-        if let BE_opacityDefault = UserDefaults.standard.object(forKey: "BE_opacity") as? String {
-            bullsEyeOpacity_Label.text = BE_opacityDefault
-            //opacity width BEsize magVar
-            opacity_Label.text = BE_opacityDefault
-            bullsEyeOpacity_SliderControl.value = Float(BE_opacityDefault)!
-        }
-        bullsEyeLineThickness_Label.text = String(Variables.BE_width)
-        if let BE_widthDefault = UserDefaults.standard.object(forKey: "BE_width") as? String {
-            bullsEyeLineThickness_Label.text = BE_widthDefault
-        }
-        bullsEyeMagVariation_Label.text = String(Variables.BE_magVariation)
+        bullsEyeMagVariation_Label.text = String(format: "%.1f", Variables.BE_magVariation)
         if let BE_magVariationDefault = UserDefaults.standard.object(forKey: "BE_magVariation") as? String {
-            bullsEyeMagVariation_Label.text = BE_magVariationDefault
+            bullsEyeMagVariation_Label.text = String(format: "%.1f", BE_magVariationDefault)
         }
         bullsEyeSize_Label.text = String(Variables.BE_radiusOfOuterRing)
         if let BE_radiusOfOuterRingDefault = UserDefaults.standard.object(forKey: "BE_radiusOfOuterRing") as? String {
@@ -376,16 +328,14 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         if let opacitySliderDefault = UserDefaults.standard.object(forKey: "BE_opacity") {
             Variables.BE_opacity = opacitySliderDefault as! String
-            opacity_Label.text = Variables.BE_opacity
         }
         
         if let lineWidthDefault = UserDefaults.standard.object(forKey: "BE_width") {
             Variables.BE_width = lineWidthDefault as! Int
-            widthLabel.text = String(Variables.BE_width)
         }
         if let magVariationDefault = UserDefaults.standard.object(forKey: "BE_magVariation") {
             Variables.BE_magVariation = magVariationDefault as! Double
-            magVarLabel.text = String(Variables.BE_magVariation)
+            magVarLabel.text = String(format: "%.2f", (Variables.BE_magVariation))
         }
         
         if let bullsEyeSizeDefault = UserDefaults.standard.object(forKey: "BE_radiusOfOuterRing") {

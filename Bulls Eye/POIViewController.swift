@@ -21,7 +21,6 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     let simulatedAltitude = 70_000.00.feetToMeters
     
     var POI_Counter = 0
-    
     var latOfDevice = 0.0
     var longOfDevice = 0.0
     var altOfDevice = 0.0
@@ -45,43 +44,57 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     var POI_FixDataForTableDisplay = [String]()
     var allCoordsTaken = [Date:[Double]]()
     
+    // MARK: GEN Button
     @IBOutlet weak var generateAndExportButtonStyle: UIButton!
     @IBAction func generateAndExportButton(_ sender: Any) {
-        if let x = UserDefaults.standard.object(forKey: "BullsEye") {
-            bullsEyeKML = x as! String
-            let internalKML = "\(POI_KML),\(bullsEyeKML)"
-            let KML_ALL = KML()
-            let KML_StringReadyForExport = KML_ALL.KMLGenerator(internalKML)
-            if let overlayFileNameDefault = UserDefaults.standard.object(forKey: "overlayFileName"){
-                Variables.overlayFileName = (overlayFileNameDefault as! String)
-            }
-            let fileName = "\(Variables.overlayFileName ?? "BullsEye").kml"
-            let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-            do {
-                try KML_StringReadyForExport.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-                let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
-                vc.popoverPresentationController?.sourceView = self.view
-                vc.excludedActivityTypes = [
-                    UIActivityType.assignToContact,
-                    UIActivityType.saveToCameraRoll,
-                    UIActivityType.postToFlickr,
-                    UIActivityType.postToVimeo,
-                    UIActivityType.postToTencentWeibo,
-                    UIActivityType.postToTwitter,
-                    UIActivityType.postToFacebook,
-                    UIActivityType.openInIBooks
-                ]
-                print("Success")
-                present(vc, animated: true, completion: nil)
-            } catch {
-                print("Failed to create file")
-                print("\(error)")
-            }
-        } else {
-            let alert  = UIAlertController(title: "SET BULLSEYE!", message: "Please set BullsEye parameters on the Bulls Eye Page before exporting the overlay", preferredStyle: UIAlertControllerStyle.alert)
+        
+        if POI_Counter == 0 {
+            
+            let alert  = UIAlertController(title: "No Captured Points", message: "You have not taken any fixes to generate an Overlay. If you would like a Bulls Eye only overlay, please go to the Bulls Eye tab and select the blue target button to the right of the Saved Bulls Eye information", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
                 (action) in alert.dismiss(animated: true, completion: nil)}))
             self.present(alert, animated: true, completion: nil)
+            
+            
+            
+        } else {
+            if let x = UserDefaults.standard.object(forKey: "BullsEye") {
+                bullsEyeKML = x as! String
+                let internalKML = "\(POI_KML),\(bullsEyeKML)"
+                let KML_ALL = KML()
+                let KML_StringReadyForExport = KML_ALL.KMLGenerator(internalKML)
+                if let overlayFileNameDefault = UserDefaults.standard.object(forKey: "overlayFileName"){
+                    Variables.overlayFileName = (overlayFileNameDefault as! String)
+                }
+                let fileName = "\(Variables.overlayFileName ?? "BullsEye").kml"
+                let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+                do {
+                    try KML_StringReadyForExport.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+                    let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
+                    vc.popoverPresentationController?.sourceView = self.view
+                    vc.excludedActivityTypes = [
+                        UIActivityType.assignToContact,
+                        UIActivityType.saveToCameraRoll,
+                        UIActivityType.postToFlickr,
+                        UIActivityType.postToVimeo,
+                        UIActivityType.postToTencentWeibo,
+                        UIActivityType.postToTwitter,
+                        UIActivityType.postToFacebook,
+                        UIActivityType.openInIBooks
+                    ]
+                    print("Success")
+                    present(vc, animated: true, completion: nil)
+                } catch {
+                    print("Failed to create file")
+                    print("\(error)")
+                }
+            } else {
+                let alert  = UIAlertController(title: "SET BULLSEYE!", message: "Please set BullsEye parameters on the Bulls Eye Page before exporting the overlay", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+                    (action) in alert.dismiss(animated: true, completion: nil)}))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
         }
     }
     
@@ -107,6 +120,9 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
         cell!.textLabel?.text = POI_FixDataForTableDisplay[indexPath.row]
         return cell!
     }
+    
+    
+
 //    // Override to support editing the table view.
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
@@ -124,9 +140,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     var backCamera: AVCaptureDevice?
     var currentDevice: AVCaptureDevice?
     var cameraPreview: AVCaptureVideoPreviewLayer?
-    
     func selectInputDevice() {
-        
         let devices = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         if devices?.position == AVCaptureDevice.Position.back {
             backCamera = devices
@@ -142,12 +156,9 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
             print(error.localizedDescription)
         }
     }
-    
     func beginCamera(){
         cameraPreview = AVCaptureVideoPreviewLayer(session: captureCoords)
         view.layer.addSublayer(cameraPreview!)
-        
-        
         view.bringSubview(toFront: rollInformationLabel)
         view.bringSubview(toFront: rollFixLabel)
         view.bringSubview(toFront: buttonStack)
@@ -155,10 +166,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
         view.bringSubview(toFront: crossHairImage)
         view.bringSubview(toFront: captureButtonOutlet)
         view.bringSubview(toFront: coordTable)
-        
-        
         cameraPreview?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        //cameraPreview?.borderColor = UIColor.red.cgColor
         cameraPreview?.frame = view.layer.bounds
         captureCoords.startRunning()
     }
@@ -168,31 +176,39 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     @IBOutlet var crossHairImage: UIImageView!
     @IBOutlet var captureButtonOutlet: UIButton!
 
+    
+    
+    
+    //Apply Protocol : CLLocationManagerDelegate
     // MARK: - Pitch, Roll, Yaw
     let motionManager = CMMotionManager()
     func outputRPY(data: CMDeviceMotion){
-        let rpyattitude = motionManager.deviceMotion!.attitude
-        let roll    = rpyattitude.roll * (180.0 / Double.pi)
-        rollOfDevice = rpyattitude.roll * (180.0 / Double.pi)
-        let pitch   = rpyattitude.pitch * (180.0 / Double.pi)
-        let yaw     = rpyattitude.yaw * (180.0 / Double.pi)
-        rollLabel.text  = "Roll: \(String(format: "%.0f°", roll))"
-        pitchLabel.text = "Pitch: \(String(format: "%.0f°", pitchAndgleOfDevice))"
-        yawLabel.text   = "Yaw: \(String(format: "%.0f°", yaw))"
-        self.pitchAndgleOfDevice = pitch
+        let rpyattitude: CMAttitude
+        let roll: Double
+        let pitch: Double
+        let yaw: Double
         
-        
-        
-        
-        if abs(roll) > 2 {
-            rollFixLabel.layer.backgroundColor = UIColor.red.cgColor
-            rollFixLabel.layer.borderWidth = 5
-            rollFixLabel.text  = "\(String(format: "%.0f°", roll))"
-        } else {
-            rollFixLabel.layer.borderWidth = 5
-            rollFixLabel.layer.backgroundColor = UIColor.green.cgColor
-            rollFixLabel.text  = "\(String(format: "%.0f°", roll))"
+        if let rpy = motionManager.deviceMotion {
+            rpyattitude = rpy.attitude
+            roll    = rpyattitude.roll * (180.0 / Double.pi)
+            rollOfDevice = rpyattitude.roll * (180.0 / Double.pi)
+            pitch   = rpyattitude.pitch * (180.0 / Double.pi)
+            yaw     = rpyattitude.yaw * (180.0 / Double.pi)
+            rollLabel.text  = "Roll: \(String(format: "%.0f°", roll))"
+            pitchLabel.text = "Pitch: \(String(format: "%.0f°", pitchAndgleOfDevice))"
+            yawLabel.text   = "Yaw: \(String(format: "%.0f°", yaw))"
+            self.pitchAndgleOfDevice = pitch
+            if abs(roll) > 2 {
+                rollFixLabel.layer.backgroundColor = UIColor.red.cgColor
+                rollFixLabel.layer.borderWidth = 5
+                rollFixLabel.text  = "\(String(format: "%.0f°", roll))"
+            } else {
+                rollFixLabel.layer.borderWidth = 5
+                rollFixLabel.layer.backgroundColor = UIColor.green.cgColor
+                rollFixLabel.text  = "\(String(format: "%.0f°", roll))"
+            }
         }
+
         
     }
     func getOrientation(){
@@ -201,7 +217,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
             if (NSError != nil){
                 print("\(String(describing: NSError))")
         }})}
-    
+    //Apply Protocol : CLLocationManagerDelegate
     // MARK: - Lattitude, Longitude, Altitude, Heading and more.
     let locManager = CLLocationManager()
     // Heading readings tend to be widely inaccurate until the system has calibrated itself
@@ -213,7 +229,17 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         headingLabel.text = "Heading: \(String(format: "%.0f", headingOfDevice))"
         self.headingOfDevice = newHeading.trueHeading
+        let trueHeading = newHeading.trueHeading
+        let magHeading = newHeading.magneticHeading
+        
+        
+        // MARK: MagneticVariation Calculation
+        Variables.UserMagVariation = trueHeading - magHeading
+        //UserDefaults.standard.set(Variables.UserMagVariation, forKey: "UserMagVariation")
+        print(Variables.UserMagVariation)
+        
     }
+
     // call the below function in viewDidLoad()
     func getpositionPermission(){
         locManager.requestAlwaysAuthorization()
@@ -233,21 +259,29 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
         
         if abs(rollOfDevice) > 2 {
             rollInformationLabel.text = "Roll must be ±2°"
-            rollInformationLabel.layer.backgroundColor = UIColor.darkGray.cgColor
+           // rollInformationLabel.layer.backgroundColor = UIColor.darkGray.cgColor
             rollInformationLabel.layer.cornerRadius = 3
         } else {
             rollInformationLabel.text = ""
-            let POI_Lat = coordsCalculations.coordsOfPOICalculate(latitudeAngleOfDevice: latOfDevice, longitudeAngleOfDevice: longOfDevice, altitudeOfDevice: simulatedAltitude, pitchAngleOfTheDevice: pitchAndgleOfDevice.degreesToRadians, headingAngleOfTheDevice_TN: headingOfDevice)[0]
-            let POI_Long = coordsCalculations.coordsOfPOICalculate(latitudeAngleOfDevice: latOfDevice, longitudeAngleOfDevice: longOfDevice, altitudeOfDevice: simulatedAltitude, pitchAngleOfTheDevice: pitchAndgleOfDevice.degreesToRadians, headingAngleOfTheDevice_TN: headingOfDevice)[1]
-            let POI_Dis = coordsCalculations.coordsOfPOICalculate(latitudeAngleOfDevice: latOfDevice, longitudeAngleOfDevice: longOfDevice, altitudeOfDevice: simulatedAltitude, pitchAngleOfTheDevice: pitchAndgleOfDevice.degreesToRadians, headingAngleOfTheDevice_TN: headingOfDevice)[2]
+            
+            // MARK: POI Calculations
+            let POI_Lat = coordsCalculations.coordsOfPOICalculate(latitudeAngleOfDevice: latOfDevice, longitudeAngleOfDevice: longOfDevice, altitudeOfDevice: altOfDevice, pitchAngleOfTheDevice: pitchAndgleOfDevice.degreesToRadians, headingAngleOfTheDevice_TN: headingOfDevice)[0]
+            let POI_Long = coordsCalculations.coordsOfPOICalculate(latitudeAngleOfDevice: latOfDevice, longitudeAngleOfDevice: longOfDevice, altitudeOfDevice: altOfDevice, pitchAngleOfTheDevice: pitchAndgleOfDevice.degreesToRadians, headingAngleOfTheDevice_TN: headingOfDevice)[1]
+            let POI_Dis = coordsCalculations.coordsOfPOICalculate(latitudeAngleOfDevice: latOfDevice, longitudeAngleOfDevice: longOfDevice, altitudeOfDevice: altOfDevice, pitchAngleOfTheDevice: pitchAndgleOfDevice.degreesToRadians, headingAngleOfTheDevice_TN: headingOfDevice)[2]
+            
+            
+            
             POI_Counter += 1
-            POI_FixDataForTableDisplay.append("""
-                POI: \(POI_Counter)
-                Lat: \(String(format: "%.3f", POI_Lat)):
-                Long: \(String(format: "%.3f", POI_Long)):
-                Bearing: \(String(format: "%.0f", headingOfDevice))°
-                Range: \(String(format: "%.1f", POI_Dis))
-                """)
+            POI_FixDataForTableDisplay.append("\(POI_Counter)")
+
+
+//            POI_FixDataForTableDisplay.append("""
+//                POI: \(POI_Counter)
+//                Lat: \(String(format: "%.3f", POI_Lat)):
+//                Long: \(String(format: "%.3f", POI_Long)):
+//                Bearing: \(String(format: "%.0f", headingOfDevice))°
+//                Range: \(String(format: "%.1f", POI_Dis))
+//                """)
             
             POI_FixData.updateValue([String(POI_Lat),String(POI_Long), String(headingOfDevice), String(POI_Dis)], forKey: String(POI_Counter))
             

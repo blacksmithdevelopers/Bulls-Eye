@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E44D8C21F4A863400010905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E44D8C11F4A863400010905 /* Assets.xcassets */; };
+		6E4DC7A72022DB3500D640E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E4DC7A62022DB3500D640E5 /* Images.xcassets */; };
 		6E7D258A1F48BF7E000CF23D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D25891F48BF7E000CF23D /* AppDelegate.swift */; };
 		6E7D258C1F48BF7E000CF23D /* PlotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D258B1F48BF7E000CF23D /* PlotsViewController.swift */; };
 		6E7D258E1F48BF7E000CF23D /* BullsEyeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D258D1F48BF7E000CF23D /* BullsEyeViewController.swift */; };
@@ -43,7 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6E44D8C11F4A863400010905 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Bulls Eye/Assets.xcassets"; sourceTree = "<group>"; };
+		6E4DC7A62022DB3500D640E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6E7D25861F48BF7E000CF23D /* Bulls Eye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bulls Eye.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7D25891F48BF7E000CF23D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7D258B1F48BF7E000CF23D /* PlotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotsViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +120,7 @@
 				6E7D260B1F48C011000CF23D /* stringManipulation.playground */,
 				6E7D25F31F48BFC1000CF23D /* BullsEye */,
 				6E7D260A1F48BFD7000CF23D /* Assets */,
+				6E4DC7A62022DB3500D640E5 /* Images.xcassets */,
 			);
 			path = "Bulls Eye";
 			sourceTree = "<group>";
@@ -148,7 +149,6 @@
 				6E9255A520224FA000070840 /* location_filled.png */,
 				6E9255A620224FA000070840 /* location.png */,
 				6E92559D20224BA300070840 /* red.png */,
-				6E44D8C11F4A863400010905 /* Assets.xcassets */,
 				6E7D25F41F48BFD1000CF23D /* icons8-accuracy_filled.png */,
 				6E7D25F51F48BFD1000CF23D /* icons8-accuracy.png */,
 				6E7D25F61F48BFD1000CF23D /* icons8-high_importance_filled.png */,
@@ -238,7 +238,6 @@
 				6E7D26021F48BFD1000CF23D /* icons8-high_importance.png in Resources */,
 				6E9255A720224FA000070840 /* location_filled.png in Resources */,
 				6E7D26071F48BFD1000CF23D /* shark.png in Resources */,
-				6E44D8C21F4A863400010905 /* Assets.xcassets in Resources */,
 				6E92559E20224BA300070840 /* red.png in Resources */,
 				6E7D26031F48BFD1000CF23D /* icons8-shark 2.png in Resources */,
 				6E7D26091F48BFD1000CF23D /* Stencil Army WW I.ttf in Resources */,
@@ -247,6 +246,7 @@
 				6E7D25961F48BF7E000CF23D /* LaunchScreen.storyboard in Resources */,
 				6E7D26051F48BFD1000CF23D /* icons8-shark.png in Resources */,
 				6E7D25911F48BF7E000CF23D /* Main.storyboard in Resources */,
+				6E4DC7A72022DB3500D640E5 /* Images.xcassets in Resources */,
 				6E7D26041F48BFD1000CF23D /* icons8-shark_filled.png in Resources */,
 				6E7D26001F48BFD1000CF23D /* icons8-accuracy.png in Resources */,
 				6E7D26011F48BFD1000CF23D /* icons8-high_importance_filled.png in Resources */,
@@ -401,24 +401,30 @@
 		6E7D259B1F48BF7E000CF23D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = KG653N5ES4;
 				INFOPLIST_FILE = "Bulls Eye/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "elmo.Bulls-Eye";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		6E7D259C1F48BF7E000CF23D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = KG653N5ES4;
 				INFOPLIST_FILE = "Bulls Eye/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "elmo.Bulls-Eye";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
