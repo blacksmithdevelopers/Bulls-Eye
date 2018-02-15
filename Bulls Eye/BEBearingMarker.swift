@@ -29,7 +29,9 @@ class BEBearingMark {
     
     
     func bearingMarkerCoordinateTranslate() -> [Double] {
-        let bullsEyeCoords = self.centerPoint
+        let bullsEyeCoords = self.centerPoint.coordTranslate()
+        return bullsEyeCoords
+        /*
         var coordsArray = bullsEyeCoords.components(separatedBy: "/")
         var lattitude: Double = 0.0
         var longitude = 0.0
@@ -49,6 +51,7 @@ class BEBearingMark {
         }
         let bullsEyeCenterPoint: Array = [lattitude,longitude]
         return bullsEyeCenterPoint
+        */
     }
     
     

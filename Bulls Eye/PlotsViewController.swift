@@ -19,11 +19,32 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var threatKML: String = ""
     var threatLabel: String = ""
     var threatColor = "Red"
-
-    //Table
-    @IBOutlet weak var threatsTable: UITableView!
+    
     var threats = [""]
     var threatDictionary = [String: Array<Any>]()
+
+    var popUpThreatRingRadius: Double = 80.0
+    var popUpThreatLocation: [Double] = [0.0, 0.0]
+    
+    
+    
+    
+    // MARK: PopUp Threat information
+    @IBOutlet weak var popUpThreatRadiusLabel: UILabel!
+    @IBOutlet weak var popUpThreatStepperOutlet: UIStepper!
+    @IBAction func popUpThreatStepper(_ sender: UIStepper) {
+        popUpThreatRingRadius = sender.value
+        popUpThreatRadiusLabel.text = String(format: "%.0f",popUpThreatRingRadius)
+        
+    }
+    @IBOutlet weak var popUpThreatCenterPointTextField: UITextField!
+    
+    
+    
+    //Table
+    @IBOutlet weak var threatsTable: UITableView!
+//    var threats = [""]
+//    var threatDictionary = [String: Array<Any>]()
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return(threats.count)
     }
@@ -43,41 +64,50 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    //Buttons
+    // MARK: SAVE Threat Button
     @IBOutlet weak var saveThreatButtonStyle: UIButton!
     @IBAction func saveThreatButton(_ sender: Any) {
-        Variables.UI_threatName = threatNameTextField.text!
-        let threatName = Variables.UI_threatName
-        Variables.UI_inputRange = Double(threatRangeTextField.text!)!
-        let threatRange = Double(threatRangeTextField.text!)
-        Variables.UI_inputBearing = Double(threatBearingTextField.text!)!
-        let threatBearing = Double(threatBearingTextField.text!)
-        let threatColor = Variables.UI_threatColor
-        
-        
-        UserDefaults.standard.set(threats, forKey: "threats")
-        UserDefaults.standard.set(threatDictionary, forKey: "threatDictionary")
-        let threat1 = Threat()
-        //threat1.threatName = threatName
-        threat1.GPSLattitude = (locationManager.location?.coordinate.latitude)!
-        threat1.GPSLongitude = (locationManager.location?.coordinate.longitude)!
-        threat1.threatColor = threatColor
-        threat1.userInputRange = threatRange!
-        threat1.userInputBearing = threatBearing!
-        bullsEyeCenterPointArray = Variables.BE_centerPointCalculatedArray
-    
-        
-        let threatDistance = threat1.distanceCalculator(bullsEyeCenterPointArray)
-        let threatBearingFromBullsEye = threat1.bearingCalculator(bullsEyeCenterPointArray)
-        threat1.threatName = "\(threatName):\(String(Int(threatBearingFromBullsEye)))\u{00B0}:\(String(Int(threatDistance)))NM"
-        threatKML += threat1.threatPlot()
-        threats.append(threatName)
-        threatDictionary[threatName] = [Double(threatRange!),Double(threatBearing!),threatDistance,threatColor]
-        threatsTable.reloadData()
-        
-        print(bullsEyeCenterPointArray)
-        print(threatDictionary)
-        print(threatBearingFromBullsEye)
+  
+        if (threatNameTextField.text == "" && popUpThreatCenterPointTextField.text == "") || threatNameTextField.text == "" || popUpThreatCenterPointTextField.text == "" {
+            let alert  = UIAlertController(title: "Missing Information", message: "Please enter a name for the Threat and Coordinates in the proper format", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+                (action) in alert.dismiss(animated: true, completion: nil)}))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            
+            let popUpThreat = Circle()
+            let threatColor = Variables.UI_threatColor
+            let threatName = Variables.UI_threatName
+            Variables.UI_threatName = threatNameTextField.text!
+            popUpThreat.centerLabelTitle = Variables.UI_threatName
+            popUpThreat.styleName = threatName
+            if let popUpThreatCenterPoint = (popUpThreatCenterPointTextField.text) {
+                popUpThreat.centerPoint = popUpThreatCenterPoint
+            } else {
+                print("No CenterPoint")
+            }
+            popUpThreat.radius = Variables.UI_popUpThreatRadius
+            Variables.UI_popUpThreatRadius = popUpThreatRingRadius
+            
+            let popUpThreat_KML = popUpThreat.circleGenerator()
+            let popUpThreatPlacemark_KML = popUpThreat.circleCenterLabelGenerator()
+            
+            let popUpThreatStyle = Style()
+            popUpThreatStyle.name = threatName
+            popUpThreatStyle.color = threatColor
+            let popUpThreatStyle_KML = popUpThreatStyle.styleGenerator()
+            let threatKML_All = popUpThreat_KML + popUpThreatPlacemark_KML + popUpThreatStyle_KML
+            
+            threatKML += threatKML_All
+            threats.append(threatName)
+            
+            threatDictionary[threatName] = [threatName, threatColor, Variables.UI_popUpThreatRadius, popUpThreat.centerPoint, threatKML_All]
+            
+            threatsTable.reloadData()
+            UserDefaults.standard.set(threats, forKey: "threats")
+            UserDefaults.standard.set(threatDictionary, forKey: "threatDictionary")
+            
+        }
     }
     @IBAction func clearAllThreatsButtons(_ sender: Any) {
         threats.removeAll()
@@ -132,16 +162,13 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     //Text Fields
     @IBOutlet weak var threatNameTextField: UITextField!
-    @IBOutlet weak var threatRangeTextField: UITextField!
-    @IBOutlet weak var threatBearingTextField: UITextField!
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == threatNameTextField {
-            threatRangeTextField.becomeFirstResponder()
-        } else if textField == threatRangeTextField {
-            threatBearingTextField.becomeFirstResponder()
+            popUpThreatCenterPointTextField.becomeFirstResponder()
         } else {
-            threatBearingTextField.resignFirstResponder()
+            popUpThreatCenterPointTextField.resignFirstResponder()
         }
         return true
     }
@@ -180,6 +207,8 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        popUpThreatRadiusLabel.text = String(format: "%.0f",popUpThreatRingRadius)
         
         if let BE_CenterPointDefault = UserDefaults.standard.object(forKey: "BE_centerPoint") {
             print(BE_CenterPointDefault)

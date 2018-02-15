@@ -16,6 +16,9 @@ class PlaceMark {
     var placeMarkPOICoords = [String]()
     
     func placeMarkCoordinateTranslate() -> [Double] {
+        let placeMarkCoords = self.placeMarkCoords.coordTranslate()
+        return placeMarkCoords
+        /*
         let placeMarkCoordsInt = self.placeMarkCoords
         var coordsArray = placeMarkCoordsInt.components(separatedBy: "/")
         var lattitude: Double = 0.0
@@ -36,6 +39,7 @@ class PlaceMark {
         }
         let bullsEyeCenterPoint: Array = [lattitude,longitude]
         return bullsEyeCenterPoint
+        */
     }
     
     func placeMarkGeneratorWithCalculatedCoords() -> String {

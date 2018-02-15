@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E4DC7A72022DB3500D640E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E4DC7A62022DB3500D640E5 /* Images.xcassets */; };
+		6E67C7782033693300540AF2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E67C7772033693300540AF2 /* Extensions.swift */; };
 		6E7D258A1F48BF7E000CF23D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D25891F48BF7E000CF23D /* AppDelegate.swift */; };
 		6E7D258C1F48BF7E000CF23D /* PlotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D258B1F48BF7E000CF23D /* PlotsViewController.swift */; };
 		6E7D258E1F48BF7E000CF23D /* BullsEyeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D258D1F48BF7E000CF23D /* BullsEyeViewController.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		6E4DC7A62022DB3500D640E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6E67C7772033693300540AF2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6E7D25861F48BF7E000CF23D /* Bulls Eye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bulls Eye.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7D25891F48BF7E000CF23D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7D258B1F48BF7E000CF23D /* PlotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotsViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		6E7D25F31F48BFC1000CF23D /* BullsEye */ = {
 			isa = PBXGroup;
 			children = (
+				6E67C7772033693300540AF2 /* Extensions.swift */,
 				6E9255A920224FF700070840 /* Calculation.swift */,
 				6E7D25DF1F48BFBB000CF23D /* ThreatClass.swift */,
 				6E7D25E01F48BFBB000CF23D /* BullsEyeClass.swift */,
@@ -276,6 +279,7 @@
 				6E9255AA20224FF800070840 /* Calculation.swift in Sources */,
 				6E7D25EC1F48BFBB000CF23D /* PlaceMarkClass.swift in Sources */,
 				6E7D25EF1F48BFBB000CF23D /* PolygonClass.swift in Sources */,
+				6E67C7782033693300540AF2 /* Extensions.swift in Sources */,
 				6E7D258C1F48BF7E000CF23D /* PlotsViewController.swift in Sources */,
 				6E7D25EE1F48BFBB000CF23D /* BEDistanceMarker.swift in Sources */,
 			);

@@ -11,8 +11,8 @@ import Foundation
 class Style {
     var name: String = ""
     var color: String = ""
-    var opacity: String = ""
-    var width: Int = 0
+    var opacity: String = "100"
+    var width: Int = 5
     
     func styleGenerator() -> String {
         let name = self.name

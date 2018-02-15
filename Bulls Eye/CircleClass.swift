@@ -22,10 +22,15 @@ class Circle {
     var centerLabelDescription: String = ""
     
     func bullsEyeCoordinateTranslate() -> [Double] {
-        let bullsEyeCoords = self.centerPoint
+        
+        let bullsEyeCoords = self.centerPoint.coordTranslate()
+        return bullsEyeCoords
+        
+        /*
+        let bullsEyeCoords = self.centerPoint.capitalized
         var coordsArray = bullsEyeCoords.components(separatedBy: "/")
         var lattitude: Double = 0.0
-        var longitude = 0.0
+        var longitude: Double = 0.0
         if coordsArray[0].range(of: "N") != nil {
             let lattitudeString = String(coordsArray[0].dropLast())
             lattitude = Double(lattitudeString)!
@@ -45,6 +50,7 @@ class Circle {
         let bullsEyeCenterPoint: Array = [lattitude,longitude]
         //print(bullsEyeCenterPoint)
         return bullsEyeCenterPoint
+        */
     }
     
     func circleGeneratorFromCalculatedCoords () -> String {

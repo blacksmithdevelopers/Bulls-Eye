@@ -34,6 +34,9 @@ class Variables {
     static var UI_threatName = "Threat"
     static var UI_threatColor = "Red"
     
+    static var UI_popUpThreatRadius: Double = 10.0
+    static var UI_popUpThreatLocation: [Double] = [0.0, 0.0]
+    
     
     
     

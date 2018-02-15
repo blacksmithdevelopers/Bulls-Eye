@@ -96,6 +96,11 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     // MARK: Coordinate Translator
     func coordinateTranslate(_ coords: String) -> [Double] {
+        let coords = coords.coordTranslate()
+        return coords
+        
+        
+        /*
         let coords = coords.capitalized
         var coordsArray = coords.components(separatedBy: "/")
         var lattitude: Double = 0.0
@@ -116,6 +121,7 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         let coordCalculatedArray: Array = [lattitude,longitude]
         return coordCalculatedArray
+        */
     }
 
     // MARK: Set Bulls Eye Button
@@ -142,7 +148,9 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         
         if bullsEyeCenterPoint_TextField.text! != "" {
-            Variables.BE_centerPoint! = bullsEyeCenterPoint_TextField.text!.capitalized
+            let bullsEyeLat = String(format: "%.4f", bullsEyeCenterPoint_TextField.text!.capitalized.coordTranslate()[0])
+            let bullsEyeLong = String(format: "%.4f", bullsEyeCenterPoint_TextField.text!.capitalized.coordTranslate()[1])
+            Variables.BE_centerPoint! = "\(bullsEyeLat)/\(bullsEyeLong)"    // bullsEyeCenterPoint_TextField.text!.capitalized
             UserDefaults.standard.set(Variables.BE_centerPoint, forKey: "BE_centerPoint")
             Variables.BE_centerPointCalculatedArray = coordinateTranslate(Variables.BE_centerPoint!.capitalized)
             UserDefaults.standard.set(Variables.BE_centerPointCalculatedArray, forKey: "coordsCalculated")
