@@ -17,8 +17,9 @@ import AVFoundation
 class POIViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource  {
     
 
-    func HUD_Color(_ trueOrFalse: Bool) {
-        if trueOrFalse == true {
+    var HUD_ColorBool: Bool = true
+    func HUD_Color() {
+        if self.HUD_ColorBool == true {
             crossHairImage.image = #imageLiteral(resourceName: "HUDRedThin")
             pilotHUDSideLabel.textColor = UIColor.HUDred
             headingToTargetLabel.textColor = UIColor.HUDred
@@ -54,9 +55,11 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     @IBOutlet weak var hudSwitchOutlet: UISwitch!
     @IBAction func hudSwitchAction(_ sender: UISwitch) {
         if sender.isOn {
-            HUD_Color(false)
+            HUD_ColorBool = false
+            HUD_Color()
         } else {
-            HUD_Color(true)
+            HUD_ColorBool = true
+            HUD_Color()
         }}
 
     let simulatedAltitude = 70_000.00.feetToMeters
@@ -81,6 +84,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     // MARK: GEN Button
     @IBOutlet weak var generateAndExportButtonStyle: UIButton!
     @IBAction func generateAndExportButton(_ sender: Any) {
+        HUD_Color()
         if POI_Counter == 0 {
             let alert  = UIAlertController(title: "No Captured Points", message: "You have not taken any fixes to generate an Overlay. If you would like a Bulls Eye only overlay, please go to the Bulls Eye tab and select the blue target button to the right of the Saved Bulls Eye information", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
@@ -321,6 +325,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
  
     // MARK: - CaptureButton
     @IBAction func captureCoordsButton(_ sender: UIButton) {
+        HUD_Color()
         getPosition()
         if abs(rollOfDevice) > 2 {
             rollInformationLabel.text = "Roll must be ±2°"
@@ -357,6 +362,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     
     @IBOutlet weak var buttonStack: UIStackView!
     @IBAction func clearTableButtong(_ sender: UIButton) {
+        HUD_Color()
         rollInformationLabel.text = ""
         POI_Counter = 0
         POI_FixDataForTableDisplay.removeAll()
@@ -379,7 +385,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     // MARK: ViewDidLoad function
     override func viewDidLoad() {
         super.viewDidLoad()
-        HUD_Color(true)
+        HUD_Color()
         
         rollFixLabel.layer.cornerRadius = 20
         getpositionPermission()
