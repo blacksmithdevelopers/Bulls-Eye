@@ -71,5 +71,15 @@ class PolygonClass {
         let polygon: String = "<Placemark><name>\(name)</name><description>\(description)</description><styleUrl>#\(styleName)</styleUrl><LineString><extrude>\(extrude)</extrude><tessellate>\(tessellate)</tessellate><altitudeMode>\(altMode)</altitudeMode><coordinates>\(points)\r</coordinates></LineString></Placemark>"
         return polygon
     }
+    
+    func foreFlightPolygonGenerator(_ points: String) -> String {
+        let styleName = self.styleName
+        let name = self.name
+        let extrude = self.extrude
+        let tessellate = self.tessellate
+        let altMode = self.altMode
+        let polygon: String = "<Placemark><name>\(name)</name><description>\(description)</description><styleUrl>#\(styleName)</styleUrl><LineString><extrude>\(extrude)</extrude><tessellate>\(tessellate)</tessellate><altitudeMode>\(altMode)</altitudeMode><coordinates>\(points)\r</coordinates></LineString></Placemark>"
+        return polygon
+    }
 }
 

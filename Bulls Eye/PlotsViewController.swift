@@ -26,6 +26,47 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var popUpThreatRingRadius: Double = 80.0
     var popUpThreatLocation: [Double] = [0.0, 0.0]
     
+    var foreFlightPolyGon_KML = ""
+    var clipBoardCounter = 0
+    
+    @IBOutlet weak var foreFlightButtonOutlet: UIButton!
+    @IBAction func foreFlightButton(_ sender: UIButton) {
+        if let listOfPoints = pasteFromForeflight().importFlightPlanFromForeflight()["Clip Board"] {
+            clipBoardCounter += 1
+            let pathID = "Clip Board"
+            let path = PolygonClass()
+            path.styleName = pathID
+            path.name = pathID
+            path.foreFlightCoords = listOfPoints
+            let foreFlightStyle = Style()
+            foreFlightStyle.name = pathID
+            foreFlightStyle.color = "Black"
+            let foreFlightStyle_KML = foreFlightStyle.styleGenerator()
+            let foreFlight_KML = foreFlightStyle_KML + path.foreFlightPolygonGenerator(listOfPoints)
+            print(foreFlight_KML)
+            threatKML += foreFlight_KML
+            //print(threatKML)
+            threats.append("\(pathID)_\(String(clipBoardCounter))")
+            threatsTable.reloadData()
+            UserDefaults.standard.set(threats, forKey: "threats")
+            UserDefaults.standard.set(threatDictionary, forKey: "threatDictionary")
+        }}
+    
+    
+    
+    func pasteFromForeflight() -> String {
+        let pasteBoard = UIPasteboard.general
+        var FF = ""
+        if let fromFF = pasteBoard.string {
+            FF = fromFF
+            return fromFF
+        } else {
+            print("Nothing copied")
+        }
+        return FF
+        
+    }
+
     
     
     
@@ -67,7 +108,6 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: SAVE Threat Button
     @IBOutlet weak var saveThreatButtonStyle: UIButton!
     @IBAction func saveThreatButton(_ sender: Any) {
-  
         if (threatNameTextField.text == "" && popUpThreatCenterPointTextField.text == "") || threatNameTextField.text == "" || popUpThreatCenterPointTextField.text == "" {
             let alert  = UIAlertController(title: "Missing Information", message: "Please enter a name for the Threat and Coordinates in the proper format", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
@@ -110,6 +150,7 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     @IBAction func clearAllThreatsButtons(_ sender: Any) {
+        clipBoardCounter = 0
         threats.removeAll()
         threatDictionary.removeAll()
         threatsTable.reloadData()

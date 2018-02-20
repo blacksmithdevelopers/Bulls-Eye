@@ -18,6 +18,9 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
    
     
     
+    @IBOutlet weak var coordFormatPopupOutlet: UIButton!
+    @IBAction func coordFormatPopupButton(_ sender: UIButton) {
+    }
     
     @IBOutlet weak var overLayFileName_TextField: UITextField!
     @IBOutlet weak var bullsEyeName_TextField: UITextField!
@@ -70,7 +73,7 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     // MARK: BULLS EYE SIZE
     @IBOutlet weak var BESizeSliderLabel: UILabel!
     @IBAction func BESizeStepper(_ sender: UIStepper) {
-        BESizeSliderLabel.text = String(sender.value)
+        BESizeSliderLabel.text = "\(String(format: "%.0f", sender.value)) NM"
         Variables.BE_radiusOfOuterRing = Double(sender.value)
     }
     
@@ -99,29 +102,6 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let coords = coords.coordTranslate()
         return coords
         
-        
-        /*
-        let coords = coords.capitalized
-        var coordsArray = coords.components(separatedBy: "/")
-        var lattitude: Double = 0.0
-        var longitude = 0.0
-        if coordsArray[0].range(of: "N") != nil {
-            let lattitudeString = String(coordsArray[0].dropLast())
-            lattitude = Double(lattitudeString)!
-        } else {
-            let lattitudeString = String(coordsArray[0].dropLast())
-            lattitude = -1 * Double(lattitudeString)!
-        }
-        if coordsArray[1].range(of: "W") != nil {
-            let longitudeString = String(coordsArray[1].dropLast())
-            longitude = -1 * Double(longitudeString)!
-        } else {
-            let longitudeString = String(coordsArray[1].dropLast())
-            longitude = Double(longitudeString)!
-        }
-        let coordCalculatedArray: Array = [lattitude,longitude]
-        return coordCalculatedArray
-        */
     }
 
     // MARK: Set Bulls Eye Button
@@ -315,9 +295,9 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let BE_magVariationDefault = UserDefaults.standard.object(forKey: "BE_magVariation") as? String {
             bullsEyeMagVariation_Label.text = String(format: "%.1f", BE_magVariationDefault)
         }
-        bullsEyeSize_Label.text = String(Variables.BE_radiusOfOuterRing)
+        bullsEyeSize_Label.text = "\(String(format: "%.0f", Variables.BE_radiusOfOuterRing)) NM"
         if let BE_radiusOfOuterRingDefault = UserDefaults.standard.object(forKey: "BE_radiusOfOuterRing") as? String {
-            bullsEyeSize_Label.text = BE_radiusOfOuterRingDefault
+            bullsEyeSize_Label.text = "\(String(format: "%.0f", BE_radiusOfOuterRingDefault)) NM"
         }
     }
     
@@ -332,8 +312,10 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let overlayFileNameDefault = UserDefaults.standard.object(forKey: "overlayFileName") as? String {
             Variables.overlayFileName = overlayFileNameDefault
             overLayFileName_Label.text = Variables.overlayFileName
+        } else {
+            overLayFileName_Label.text = ""
         }
-        
+
         if let opacitySliderDefault = UserDefaults.standard.object(forKey: "BE_opacity") {
             Variables.BE_opacity = opacitySliderDefault as! String
         }
@@ -343,27 +325,22 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         if let magVariationDefault = UserDefaults.standard.object(forKey: "BE_magVariation") {
             Variables.BE_magVariation = magVariationDefault as! Double
-            magVarLabel.text = String(format: "%.2f", (Variables.BE_magVariation))
-        }
+            magVarLabel.text = String(format: "%.1f", (Variables.BE_magVariation))
+        } 
         
         if let bullsEyeSizeDefault = UserDefaults.standard.object(forKey: "BE_radiusOfOuterRing") {
             Variables.BE_radiusOfOuterRing = bullsEyeSizeDefault as! Double
-            BESizeSliderLabel.text = String(Variables.BE_radiusOfOuterRing)
+            BESizeSliderLabel.text = "\(String(format: "%.0f", Variables.BE_radiusOfOuterRing)) NM"
+        } else {
+            Variables.BE_radiusOfOuterRing = 200.0
+            BESizeSliderLabel.text = "200 NM"
         }
-        
-        
         if CLLocationManager.locationServicesEnabled(){
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
-        
         savedBullsEyeInformation()
-        
-        
-        
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
