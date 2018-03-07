@@ -33,11 +33,5 @@ class Functions {
         print(range)
         return results
     }
-
-    
-    
-    
-    
-    
 }
 

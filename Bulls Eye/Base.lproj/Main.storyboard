@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -201,10 +200,10 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hl8-rx-Q0R">
-                                                <rect key="frame" x="514.5" y="0.0" width="15" height="15"/>
+                                                <rect key="frame" x="484" y="0.0" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="15" id="dzi-58-SEz"/>
-                                                    <constraint firstAttribute="width" constant="15" id="gAi-w1-iZ4"/>
+                                                    <constraint firstAttribute="height" constant="45" id="dzi-58-SEz"/>
+                                                    <constraint firstAttribute="width" constant="45" id="gAi-w1-iZ4"/>
                                                 </constraints>
                                                 <state key="normal" image="ForeFlightExportBlue"/>
                                                 <connections>
@@ -219,7 +218,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Hl8-rx-Q0R" secondAttribute="trailing" constant="8" id="LLm-Qb-qvo"/>
                                             <constraint firstItem="7Kp-yp-7DG" firstAttribute="centerX" secondItem="g2b-Ne-agz" secondAttribute="centerX" id="Sa7-Q7-djH"/>
                                             <constraint firstItem="Si2-tO-cmW" firstAttribute="top" secondItem="7Kp-yp-7DG" secondAttribute="bottom" constant="62" id="cS8-zw-rsJ"/>
-                                            <constraint firstItem="Hl8-rx-Q0R" firstAttribute="centerY" secondItem="7Kp-yp-7DG" secondAttribute="centerY" constant="-27.5" id="m5c-99-Ba6"/>
+                                            <constraint firstItem="Hl8-rx-Q0R" firstAttribute="centerY" secondItem="7Kp-yp-7DG" secondAttribute="centerY" constant="-12.5" id="m5c-99-Ba6"/>
                                             <constraint firstItem="7Kp-yp-7DG" firstAttribute="top" secondItem="g2b-Ne-agz" secondAttribute="top" constant="8" id="oST-jQ-94q"/>
                                             <constraint firstItem="rIT-C2-xL2" firstAttribute="top" secondItem="Si2-tO-cmW" secondAttribute="bottom" constant="8" id="paG-VK-fRT"/>
                                             <constraint firstItem="Si2-tO-cmW" firstAttribute="width" relation="greaterThanOrEqual" secondItem="g2b-Ne-agz" secondAttribute="width" multiplier="0.75" id="vZD-nO-j4T"/>
@@ -239,7 +238,7 @@
                                 <rect key="frame" x="576" y="0.0" width="192" height="1024"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="threatCell" id="sdH-Ud-wHO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="threatCell" id="sdH-Ud-wHO">
                                         <rect key="frame" x="0.0" y="28" width="192" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sdH-Ud-wHO" id="Ms4-nA-CaL">
@@ -933,7 +932,7 @@ DD.ddddn DDD.ddddw
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                         <state key="normal" title="CAP">
-                                            <color key="titleColor" name="HUDred"/>
+                                            <color key="titleColor" name="vibrantGreen"/>
                                         </state>
                                         <variation key="widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -950,7 +949,7 @@ DD.ddddn DDD.ddddw
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                         <state key="normal" title="CLR">
-                                            <color key="titleColor" name="HUDred"/>
+                                            <color key="titleColor" name="vibrantGreen"/>
                                         </state>
                                         <variation key="widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -967,7 +966,7 @@ DD.ddddn DDD.ddddw
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                         <state key="normal" title="GEN">
-                                            <color key="titleColor" name="HUDred"/>
+                                            <color key="titleColor" name="vibrantGreen"/>
                                         </state>
                                         <variation key="widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1001,7 +1000,7 @@ DD.ddddn DDD.ddddw
                                     <constraint firstAttribute="width" constant="48" id="quw-L5-eOc"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ylB-lt-sFt" style="IBUITableViewCellStyleDefault" id="aeb-Oo-9wG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ylB-lt-sFt" style="IBUITableViewCellStyleDefault" id="aeb-Oo-9wG">
                                         <rect key="frame" x="0.0" y="28" width="48" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aeb-Oo-9wG" id="CQY-cf-o1h">
@@ -1112,7 +1111,7 @@ DD.ddddn DDD.ddddw
                                     <constraint firstAttribute="width" secondItem="ykG-y8-0pf" secondAttribute="height" multiplier="4:3" constant="-139.33333333333326" id="ZgT-Nw-NDh"/>
                                 </constraints>
                             </imageView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zJS-qm-jAQ">
+                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJS-qm-jAQ">
                                 <rect key="frame" x="20" y="915" width="51" height="31"/>
                                 <color key="onTintColor" red="0.0" green="0.88640149109999999" blue="0.26243182770000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="thumbTintColor" red="0.33264508110000002" green="0.3310381" blue="0.33425206219999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1176,10 +1175,11 @@ DD.ddddn DDD.ddddw
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                    <tabBar key="tabBar" alpha="0.69999999999999996" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="KIQ-Pr-Ers" kind="relationship" relationship="viewControllers" id="r30-jP-8Gc"/>
@@ -1217,8 +1217,8 @@ DD.ddddn DDD.ddddw
         <image name="icons8-center_direction_filled" width="25" height="25"/>
         <image name="icons8-fire_alarm_button" width="25" height="25"/>
         <image name="icons8-fire_alarm_button_filled" width="25" height="25"/>
-        <namedColor name="HUDred">
-            <color red="0.99900001287460327" green="0.14800000190734863" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="vibrantGreen">
+            <color red="0.25299999117851257" green="1" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

@@ -17,7 +17,7 @@ import AVFoundation
 class POIViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource  {
     
 
-    var HUD_ColorBool: Bool = true
+    var HUD_ColorBool: Bool = false
     func HUD_Color() {
         if self.HUD_ColorBool == true {
             crossHairImage.image = #imageLiteral(resourceName: "HUDRedThin")
@@ -230,13 +230,11 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
         let rpyattitude: CMAttitude
         let roll: Double
         let pitch: Double
-//        let yaw: Double
         if let rpy = motionManager.deviceMotion {
             rpyattitude = rpy.attitude
             roll    = rpyattitude.roll * (180.0 / Double.pi)
             rollOfDevice = rpyattitude.roll * (180.0 / Double.pi)
             pitch   = rpyattitude.pitch * (180.0 / Double.pi)
-//            yaw     = rpyattitude.yaw * (180.0 / Double.pi)
             self.pitchAndgleOfDevice = pitch
             if abs(roll) > 2 {
                 rollFixLabel.layer.backgroundColor = UIColor.red.cgColor
@@ -294,8 +292,8 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
                 }
             }
             distanceToTargetLabel.text = "\(String(format: "%.2f", targetDistance)) NM"
-            targetLatLabel.text = "\(String(format: "%.4f", targetLat))"
-            targetLongLabel.text = "\(String(format: "%.4f", targetLong))"
+            targetLatLabel.text = targetLat.lat_DDdddd_To_DDMMdd()
+            targetLongLabel.text = targetLong.long_DDdddd_To_DDMMdd()
             Variables.POI_currentDistanceFromDevice = targetDistance
             Variables.POI_currentHeadingFromDevice = deviceHeading
             Variables.POI_latitude = targetLat

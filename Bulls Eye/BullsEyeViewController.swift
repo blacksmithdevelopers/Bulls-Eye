@@ -285,7 +285,10 @@ class BullsEyeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         bullsEyeCenterPoint_Label.text = Variables.BE_centerPoint?.capitalized
         if let bullsEyeCenterPointDefault = UserDefaults.standard.object(forKey: "BE_centerPoint") as? String {
-            bullsEyeCenterPoint_Label.text = bullsEyeCenterPointDefault
+            let BECP = bullsEyeCenterPointDefault.coordTranslate()
+            let lat = BECP[0].lat_DDdddd_To_DDMMdd()
+            let long = BECP[1].long_DDdddd_To_DDMMdd()
+            bullsEyeCenterPoint_Label.text = "\(lat)/\(long)"
         }
         bullsEyeColor_Label.text = Variables.BE_color
         if let BE_colorDefault = UserDefaults.standard.object(forKey: "BE_color") as? String {
