@@ -185,7 +185,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
     var currentDevice: AVCaptureDevice?
     var cameraPreview: AVCaptureVideoPreviewLayer?
     func selectInputDevice() {
-        let devices = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let devices = AVCaptureDevice.default(for: AVMediaType.video)
         if devices?.position == AVCaptureDevice.Position.back {
             backCamera = devices
         }
@@ -218,7 +218,7 @@ class POIViewController: UIViewController, CLLocationManagerDelegate, UITableVie
         view.bringSubview(toFront: crossHairImage)
         view.bringSubview(toFront: captureButtonOutlet)
         view.bringSubview(toFront: coordTable)
-        cameraPreview?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        cameraPreview?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreview?.frame = view.layer.bounds
         captureCoords.startRunning()
     }

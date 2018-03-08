@@ -253,17 +253,32 @@ public extension String {
     
     public func importFlightPlanFromForeflight() -> [String:String] {
         let clipBaord = "Clip Board"
+        var coordsArray = [String]()
         var importAll = [String:String]()
         let foreflightFlightPlan = self
-        var latLong = foreflightFlightPlan.split(separator: " ")
-        let positionOfFFAltitudeString = latLong.count - 1
-        latLong.remove(at: positionOfFFAltitudeString)
         var coordString = ""
-        for latlongs in latLong {
-            let x = String(latlongs)
-            let lat = x.coordTranslate()[0]
-            let long = x.coordTranslate()[1]
-            coordString += "\(long),\(lat),500\r"
+        if foreflightFlightPlan.suffix(2) == "ft" {
+            var latLong = foreflightFlightPlan.split(separator: " ")
+            let positionOfFFAltitudeString = latLong.count - 1
+            latLong.remove(at: positionOfFFAltitudeString)
+            
+            
+            for latlongs in latLong {
+                let x = String(latlongs)
+                let lat = x.coordTranslate()[0]
+                let long = x.coordTranslate()[1]
+                coordString = "\(long),\(lat),500\r"
+                coordsArray.append(coordString)
+            }
+            coordsArray.append(coordsArray[0])
+            
+            for i in coordsArray {
+                coordString += "\(i)"
+            }
+        } else {
+            let alertController = UIAlertController(title: "Please Send to ClipBoard", message:
+                "This button takes a foreflight flightplan (coordinate points) from the clipboard and creates a KML Overlay item. Please try again", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
         }
         importAll[clipBaord] = coordString
         return importAll

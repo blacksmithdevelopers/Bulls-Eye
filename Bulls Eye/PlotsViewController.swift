@@ -40,7 +40,7 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             path.foreFlightCoords = listOfPoints
             let foreFlightStyle = Style()
             foreFlightStyle.name = pathID
-            foreFlightStyle.color = "Black"
+            foreFlightStyle.color = "Red"
             let foreFlightStyle_KML = foreFlightStyle.styleGenerator()
             let foreFlight_KML = foreFlightStyle_KML + path.foreFlightPolygonGenerator(listOfPoints)
             print(foreFlight_KML)
@@ -117,8 +117,8 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let popUpThreat = Circle()
             let threatColor = Variables.UI_threatColor
-            let threatName = Variables.UI_threatName
             Variables.UI_threatName = threatNameTextField.text!
+            let threatName = Variables.UI_threatName
             popUpThreat.centerLabelTitle = Variables.UI_threatName
             popUpThreat.styleName = threatName
             if let popUpThreatCenterPoint = (popUpThreatCenterPointTextField.text) {

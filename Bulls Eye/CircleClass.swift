@@ -35,7 +35,7 @@ class Circle {
         var circleOrderedPairs: [String] = []
         var coordPairs: String = ""
         
-        for i in 0 ..< 361 {
+        for i in 0 ..< 365 {
             let j = Double(i)
             let x = ((radiusCalculated/cos(lattitude * Double.pi / 180)) * cos(j * Double.pi / 180)) + longitude
             let y = (radiusCalculated * sin(j * Double.pi / 180)) + lattitude

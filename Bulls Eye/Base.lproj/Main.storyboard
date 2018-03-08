@@ -29,8 +29,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2b-Ne-agz" userLabel="Input View">
                                         <rect key="frame" x="0.0" y="36" width="537.5" height="974"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Threat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kp-yp-7DG">
-                                                <rect key="frame" x="206.5" y="8" width="124.5" height="54"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ring" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Kp-yp-7DG">
+                                                <rect key="frame" x="226" y="8" width="86" height="54"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -162,12 +162,12 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rIT-C2-xL2">
-                                                <rect key="frame" x="169" y="604" width="200" height="184"/>
+                                                <rect key="frame" x="224.5" y="604" width="89" height="184"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10s-Uk-Lq4">
-                                                        <rect key="frame" x="18.5" y="0.0" width="163" height="48"/>
+                                                        <rect key="frame" x="11" y="0.0" width="67" height="48"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                                                        <state key="normal" title="Save Threat"/>
+                                                        <state key="normal" title="Save"/>
                                                         <variation key="heightClass=regular-widthClass=compact">
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         </variation>
@@ -176,9 +176,9 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsg-RP-X9g">
-                                                        <rect key="frame" x="43" y="68" width="114" height="48"/>
+                                                        <rect key="frame" x="8" y="68" width="73" height="48"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                                                        <state key="normal" title="Clear All"/>
+                                                        <state key="normal" title="Clear"/>
                                                         <variation key="heightClass=regular-widthClass=compact">
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         </variation>
@@ -187,9 +187,9 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tS-jR-Dke">
-                                                        <rect key="frame" x="0.0" y="136" width="200" height="48"/>
+                                                        <rect key="frame" x="0.0" y="136" width="89" height="48"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                                                        <state key="normal" title="Export Overlay"/>
+                                                        <state key="normal" title="Export"/>
                                                         <variation key="heightClass=regular-widthClass=compact">
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         </variation>
