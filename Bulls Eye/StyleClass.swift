@@ -12,7 +12,7 @@ class Style {
     var name: String = ""
     var color: String = ""
     var opacity: String = "100"
-    var width: Int = 10
+    var width: Int = 8
     
     func styleGenerator() -> String {
         let name = self.name
@@ -47,7 +47,7 @@ class Style {
                                         "85"  : "55",
                                         "90"  : "5a",
                                         "95"  : "5f",
-                                        "100" : "64"]
+                                        "100" : "ff"]
         let lineStyleColor = (transparencyPercentage[opacity]! + colorDictionary[color]!)
         let style: String = "<Style id=\"\(name)\"><LineStyle><color>\(lineStyleColor)</color><width>\(lineWidth)</width></LineStyle><PolyStyle><color>\(lineStyleColor)</color></PolyStyle></Style>" //<name>\(name)</name><description></description>"
         //print(style)
