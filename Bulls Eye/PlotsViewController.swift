@@ -14,7 +14,6 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     let locationManager = CLLocationManager()
     var bullsEyeKML = String()
-    //var bullsEyeCenterPoint = "40N/121W"
     var bullsEyeCenterPointArray: [Double] = []
     var threatKML: String = ""
     var threatLabel: String = ""
@@ -50,16 +49,26 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             threatsTable.reloadData()
             UserDefaults.standard.set(threats, forKey: "threats")
             UserDefaults.standard.set(threatDictionary, forKey: "threatDictionary")
-        }}
-    
-    
+        } else {
+            let alertController = UIAlertController(title: "Please Send to ClipBoard", message:
+                "This button takes a foreflight flightplan (coordinate points) from the clipboard and creates a KML Overlay item. Please try again", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+        }
+        
+    }
     
     func pasteFromForeflight() -> String {
         let pasteBoard = UIPasteboard.general
         var FF = ""
         if let fromFF = pasteBoard.string {
             FF = fromFF
-            return fromFF
+            if FF.suffix(2) == "ft" {
+                return fromFF
+            } else {
+                let alertController = UIAlertController(title: "Please Send to ClipBoard", message:
+                    "This button takes a foreflight flightplan (coordinate points) from the clipboard and creates a KML Overlay item. Please try again", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+            }
         } else {
             print("Nothing copied")
         }
@@ -159,7 +168,7 @@ class PlotsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         threatKML = ""
     }
     
-    
+    // MARK: ShareSheet
     @IBOutlet weak var generateAndExportButtonStyle: UIButton!
     @IBAction func generateAndExportButton(_ sender: Any) {
         if let x = UserDefaults.standard.object(forKey: "BullsEye") {
